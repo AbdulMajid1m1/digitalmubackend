@@ -47,7 +47,7 @@ router.post("/send-mail", async (req, res) => {
         }
         sendEmail({
             from: user.email,
-            to: "abdulmajid1m2@gmail.com",
+            to: "tanyaje.customer@gmail.com",
             subject: "Digital Mu Password Reset",
             html: ` <h3>${user.name} has requested Password Reset</h3> </b>, 
             <h4>phone: ${user.phone} </h4> </b>

@@ -12,6 +12,8 @@ cloudinary.config({
     api_key: "728829647533853",
     api_secret: "d7FOpvaEzC9D0XmKY_pGqzGTUm4",
 });
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 app.use(
     fileUpload({
@@ -20,12 +22,17 @@ app.use(
     })
 );
 // use cors to allow cross origin resource sharing from all domains
-app.use(cors(
-    {
-        // origin: "https://adminpanel-189c0.web.app"
-        origin: "*"
-    }
-));
+// app.use(cors(
+//     {
+//         // origin: "https://adminpanel-189c0.web.app"
+
+//         origin: "*",
+//         credentials: true,
+//     }
+// ));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
+
 
 //database connection
 mongoose.set("strictQuery", false);
@@ -43,6 +50,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", require("./routes/Route"));
+app.use("/", require("./routes/Login"));
 
 
 const port = process.env.PORT || 5000;

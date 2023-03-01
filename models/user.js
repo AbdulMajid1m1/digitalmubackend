@@ -1,8 +1,4 @@
-const { date, object } = require("joi");
 const mongoose = require("mongoose");
-
-
-// DRIVER SCHEMA
 const userSchema = new mongoose.Schema(
     {
 
