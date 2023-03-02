@@ -115,7 +115,7 @@ router.post("/add-contact", async (req, res) => {
     const values = joi.object({
         name: joi.string().min(3).max(30).required(),
         email: joi.string().email().optional().allow(""),
-        phone: joi.number().required(),
+        phone: joi.string().required(),
         userId: joi.string().required(),
     }).validate(req.body);
     if (values.error) {
@@ -341,6 +341,41 @@ router.get('/users/stat', async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 });
+
+
+
+router.get("/users-analytics", async (req, res) => {
+    const now = new Date();
+    const last24Hours = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const last48Hours = new Date(now.getTime() - 48 * 60 * 60 * 1000);
+    const last72Hours = new Date(now.getTime() - 72 * 60 * 60 * 1000);
+    const last96Hours = new Date(now.getTime() - 96 * 60 * 60 * 1000);
+
+    // fetch the users from the database and group them into three categories based on their createdAt timestamp
+    User.find({}, (err, users) => {
+        if (err) {
+            console.log(err);
+        } else {
+            const group1 = users.filter(user => user.createdAt >= last24Hours);
+            const group2 = users.filter(user => user.createdAt >= last48Hours && user.createdAt < last24Hours);
+            const group3 = users.filter(user => user.createdAt >= last72Hours && user.createdAt < last48Hours);
+            const group4 = users.filter(user => user.createdAt >= last96Hours && user.createdAt < last72Hours);
+            console.log("group1", group1);
+            console.log("group2", group2);
+            console.log("group3", group3);
+            res.json({
+                last24Hours: group1.length,
+                last48Hours: group2.length,
+                last72Hours: group3.length,
+                last96Hours: group4.length,
+            });
+
+        }
+    });
+});
+
+
+
 
 
 
