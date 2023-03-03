@@ -144,8 +144,7 @@ router.post("/add-contact", async (req, res) => {
         // send email to user 
         sendEmail({
             from: email,
-            // to: UpdateUser.email,
-            to: "abdulmajid1m2@gmail.com",
+            to: UpdateUser.email,
             subject: "Digital Mu Connection Request",
             html: ` <h3>${name} has requested to connect with you</h3> </b>,
             <h4>phone: ${phone} </h4> </b>
