@@ -3,7 +3,15 @@ const User = require("../models/user");
 const fileUpload = require("express-fileupload");
 const cloudinary = require("cloudinary").v2;
 const joi = require("joi");
-const { sendEmail } = require("../mail");
+const { sendEmail, SendEmailWithAttactment } = require("../mail");
+
+const fs = require('fs');
+
+
+const image = fs.readFileSync('muLogo.png');
+const imageBase64 = image.toString('base64');
+const imageDataUri = `data:image/png;base64,${imageBase64}`;
+
 
 cloudinary.config({
     cloud_name: "creativem",
@@ -25,6 +33,7 @@ router.get("/get-all-users", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
 
 // send mail to user
 router.post("/send-mail", async (req, res) => {
@@ -60,6 +69,8 @@ router.post("/send-mail", async (req, res) => {
     }
 
 });
+
+
 
 router.get("/get-user/:id", async (req, res) => {
     try {
@@ -130,6 +141,20 @@ router.post("/add-contact", async (req, res) => {
         if (!UpdateUser) {
             return res.status(400).json({ message: "User not found" });
         }
+        // send email to user 
+        sendEmail({
+            from: email,
+            // to: UpdateUser.email,
+            to: "abdulmajid1m2@gmail.com",
+            subject: "Digital Mu Connection Request",
+            html: ` <h3>${name} has requested to connect with you</h3> </b>,
+            <h4>phone: ${phone} </h4> </b>
+            <h4>email: ${email} </h4> </b>
+            <h4>Powred by Digital Mu</h4> </b>
+            <img src="https://res.cloudinary.com/creativem/image/upload/v1677859092/muLogo_rmzh6m.png" alt="muLogo" />
+            `,
+        });
+
         return res.status(200).json({ message: "Contact added successfully", UpdateUser });
     } catch (err) {
         res.status(500).json({ message: err.message });

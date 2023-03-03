@@ -29,8 +29,36 @@ module.exports = {
       }
     );
 
-    /* Preview only available when sending through an Ethereal account */
-    // console.log(`Message preview URL: ${nodemailer.getTestMessageUrl(info)}`)
+  },
+  SendEmailWithAttactment: async ({ from, to, subject, html, attachments }) => {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+
+      auth: {
+        user: "abdulmajid1m2@gmail.com",
+        pass: "rkgttmnxstzarcmf",
+      },
+      port: 465,
+      host: "smtp.gmail.com",
+    });
+    /* Send the email */
+    let info = await transporter.sendMail(
+      {
+        from,
+        to,
+        subject,
+        html,
+        attachments
+      },
+      (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("emial sent");
+        }
+      }
+    );
+
   },
 };
 
