@@ -271,14 +271,14 @@ router.put("/update-user/:id", async (req, res) => {
             // date: joi.date(),
             phone: joi.number(),
             address: joi.string().min(3),
-            digitalmuUrl: joi.string().optional(),
+            digitalmuUrl: joi.string().optional().allow(""), // it can be empty not required
             designation: joi.string(),
             selectedColor: joi.string(),
-            facebookUrl: joi.string().optional(),
-            twitterUrl: joi.string().optional(),
-            tiktokUrl: joi.string().optional(),
+            facebookUrl: joi.string().optional().allow(""),
+            twitterUrl: joi.string().optional().allow(""),
+            tiktokUrl: joi.string().optional().allow(""),
             // youtube url optional
-            youtubeUrl: joi.string().optional(),
+            youtubeUrl: joi.string().optional().allow(""),
             status: joi.string().valid('active', 'inactive').insensitive()
         });
 
