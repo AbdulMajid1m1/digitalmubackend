@@ -8,9 +8,9 @@ const cloudinary = require("cloudinary").v2;
 const cors = require("cors");
 
 cloudinary.config({
-    cloud_name: "creativem",
-    api_key: "728829647533853",
-    api_secret: "d7FOpvaEzC9D0XmKY_pGqzGTUm4",
+    cloud_name: "du27h3lsu",
+    api_key: "323936629766162",
+    api_secret: "CgNCVe7iVnnA6DUk5LjjKI4S5fM",
 });
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -30,7 +30,8 @@ app.use(cors({
 
 //database connection
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb+srv://mjfood:1panzer00@cluster0.w54ra.mongodb.net/digitalMuDB?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://tanyajemarketing:wft92fWwtA9eRcIX@cluster0.27g991n.mongodb.net/?retryWrites=true&w=majority", {
+
     useNewUrlParser: true,
 }).then(() => {
     console.log("Connected to database!");
