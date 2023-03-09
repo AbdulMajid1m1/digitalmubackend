@@ -23,7 +23,10 @@ app.use(
 );
 
 app.use(cors({
-    origin: ["https://adminpanel-189c0.web.app", "http://localhost:3000"], credentials: true
+    // origin: ["https://adminpanel-189c0.web.app", "http://localhost:3000"], credentials: true
+    origin: "*",
+    credentials: true
+
 }));
 
 
@@ -31,7 +34,6 @@ app.use(cors({
 //database connection
 mongoose.set("strictQuery", false);
 mongoose.connect("mongodb+srv://tanyajemarketing:wft92fWwtA9eRcIX@cluster0.27g991n.mongodb.net/?retryWrites=true&w=majority", {
-
     useNewUrlParser: true,
 }).then(() => {
     console.log("Connected to database!");
